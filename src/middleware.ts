@@ -1,20 +1,23 @@
 import { NextResponse } from 'next/server'
-import useAuth from './hooks/useAuth'
 import type { NextRequest } from 'next/server'
 
 const pageWithNoAuth = ['/', '/index']
+const pageWithAuth = ['/dashboard']
+const pageConcat = pageWithNoAuth.concat(pageWithAuth)
 
 export function middleware(request: NextRequest) {
-  const { isAuthenticated } = useAuth()
+  const cookie = request.cookies.get('absen_token')?.value
+  const response = NextResponse.next()
+
+  console.log(cookie)
 
   if (pageWithNoAuth.indexOf(request.nextUrl.pathname) !== -1) {
-    if (!isAuthenticated) return NextResponse.next()
-    else return NextResponse.redirect(new URL('/dashboard', request.url))
+    if (cookie) return NextResponse.redirect(new URL('/dashboard', request.url))
+  } else if (pageWithAuth.indexOf(request.nextUrl.pathname) !== -1) {
+    if (!cookie) return NextResponse.redirect(new URL('/', request.url))
   }
 
-  return NextResponse.next()
+  return response
 }
 
-export const config = {
-  matcher: ['/', '/index'],
-}
+export const config = { matcher: pageConcat }
