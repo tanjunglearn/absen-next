@@ -6,10 +6,7 @@ const instance = axios.create({
   responseType: 'json'
 })
 
-const onPost = (
-  url: string,
-  data: object | null | undefined
-) => {
+const onPost = (url: string, data?: object) => {
   return instance({
     method: 'POST',
     url: url,
@@ -17,10 +14,7 @@ const onPost = (
   })
 }
 
-const onGet = (
-  url: string,
-  params: object | null | undefined
-) => {
+const onGet = (url: string, params?: object) => {
   return instance({
     method: 'GET',
     url: url,
@@ -28,10 +22,7 @@ const onGet = (
   })
 }
 
-const onPatch = (
-  url: string,
-  data: object | null | undefined
-) => {
+const onPatch = (url: string, data?: object) => {
   return instance({
     method: 'PATCH',
     url: url,
@@ -39,10 +30,7 @@ const onPatch = (
   })
 }
 
-const onPut = (
-  url: string,
-  data: object | null | undefined
-) => {
+const onPut = (url: string, data?: object) => {
   return instance({
     method: 'PUT',
     url: url,
@@ -50,10 +38,7 @@ const onPut = (
   })
 }
 
-const onDelete = (
-  url: string,
-  params: object | null | undefined
-) => {
+const onDelete = (url: string, params?: object) => {
   return instance({
     method: 'DELETE',
     url: url,

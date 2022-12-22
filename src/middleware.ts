@@ -7,9 +7,6 @@ const pageConcat = pageWithNoAuth.concat(pageWithAuth)
 
 export function middleware(request: NextRequest) {
   const cookie = request.cookies.get('absen_token')?.value
-  const response = NextResponse.next()
-
-  console.log(cookie)
 
   if (pageWithNoAuth.indexOf(request.nextUrl.pathname) !== -1) {
     if (cookie) return NextResponse.redirect(new URL('/dashboard', request.url))
@@ -17,7 +14,7 @@ export function middleware(request: NextRequest) {
     if (!cookie) return NextResponse.redirect(new URL('/', request.url))
   }
 
-  return response
+  return NextResponse.next()
 }
 
 export const config = { matcher: pageConcat }

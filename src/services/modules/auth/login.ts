@@ -5,9 +5,9 @@ const authLogin = (data: object) => {
     try {
       const req = await onPost('/login', data)
 
-      resolve(req)
+      resolve({ status: true, data:req })
     } catch (error) {
-      resolve(error)
+      resolve({ status: false, data: error})
     }
   })
 }
